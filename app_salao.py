@@ -8,7 +8,7 @@ NUMERO_WHATSAPP = "5511966092902"
 # --- CONFIGURAÇÃO DA PÁGINA WEB ---
 st.set_page_config(page_title="Studio Jeh Beauté", page_icon="💇‍♀️", layout="centered")
 
-# --- DESIGN: PALETA OFICIAL + BLINDAGEM DE LEITURA NAS CAIXAS (CSS) ---
+# --- DESIGN: PALETA OFICIAL + BLINDAGEM COMPLETA DAS CAIXAS (CSS) ---
 VISUAL_STUDIO = """
     <style>
     /* 1. Força o fundo de fora do site a ser o Dourado Acetinado */
@@ -46,20 +46,34 @@ VISUAL_STUDIO = """
         font-size: 14px !important;
     }
 
-    /* 🔒 SOLUÇÃO DEFINITIVA: Força as caixas a terem fundo branco e letras escuras legíveis */
-    input, select, div[data-baseweb="select"], div[data-baseweb="input"], .stTextInput input {
+    /* 🔒 FIX COMPLETO: Força ABSOLUTAMENTE TODAS as caixas (Nome, Serviço, Dia e Hora) a ficarem brancas com letras escuras */
+    input, select, 
+    div[data-baseweb="select"], 
+    div[data-baseweb="input"], 
+    .stTextInput input,
+    div[data-testid="stDateInput"] div,
+    div[data-testid="stTimeInput"] div,
+    div[data-testid="stDateInput"] input,
+    div[data-testid="stTimeInput"] input {
         background-color: #FFFFFF !important;
         color: #2C1E18 !important;
         border: 1px solid #E6D5CC !important;
         -webkit-text-fill-color: #2C1E18 !important;
     }
 
-    /* Correção específica para o texto de dentro do seletor de serviços */
+    /* Garante que o texto de dentro da caixinha de serviços também fique escuro e legível */
     div[data-baseweb="select"] * {
         color: #2C1E18 !important;
     }
 
-    /* Garante que o texto de exemplo (placeholder) fique visível em cinza */
+    /* Garante que os ícones internos de calendário e relógio fiquem visíveis */
+    div[data-testid="stDateInput"] svg,
+    div[data-testid="stTimeInput"] svg {
+        fill: #2C1E18 !important;
+        color: #2C1E18 !important;
+    }
+
+    /* Ajusta a cor dos textos de exemplo em cinza */
     input::placeholder {
         color: #888888 !important;
         opacity: 1 !important;
