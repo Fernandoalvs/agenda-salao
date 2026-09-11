@@ -2,9 +2,11 @@ import streamlit as st
 from datetime import datetime
 import urllib.parse
 
-
+# 📱 INSIRA O NÚMERO DE WHATSAPP DA SUA IRMÃ AQUI (Com o DDD e sem espaços ou traços)
+# Exemplo: "5511999999999" (O 55 é o código do Brasil, obrigatório!)
 NUMERO_WHATSAPP = "5511915167912"
 
+# --- CONFIGURAÇÃO DA PÁGINA WEB ---
 st.set_page_config(page_title="Solicitar Horário", page_icon="💇‍♀️", layout="centered")
 
 st.title("💇‍♀️ Pré-Agendamento Online - Studio Jeh Beaute")
@@ -13,39 +15,39 @@ st.write("---")
 
 st.header("Preencha os dados abaixo:")
 
-nome = st.text_input("Qual o seu nome?")
-servico = st.selectbox("Escolha o serviço:",
-                       ["Corte Feminino", "Corte Masculino", "Manicure", "Pedicure", "Escova/Escova Progressiva"])
+# Caixas de preenchimento do site que atualizam em tempo real
+nome = st.text_input("Qual o seu nome?", placeholder="Digite seu nome completo")
+servico = st.selectbox("Escolha o serviço:", ["Corte Feminino", "Corte Masculino", "Manicure", "Pedicure", "Escova/Escova Progressiva"])
 data = st.date_input("Escolha o dia desejado:", min_value=datetime.today(), format="DD/MM/YYYY")
 horario = st.time_input("Escolha o horário desejado:")
 
-st.write("##")
+st.write("##") # Espaço visual
 
-if st.button("Confirmar Dados do Agendamento ✨", type="secondary"):
-    if nome:
-        data_formatada = data.strftime('%d/%m/%Y')
-        horario_formatado = horario.strftime('%H:%M')
+# Formata a data e hora para o padrão brasileiro de leitura
+data_formatada = data.strftime('%d/%m/%Y')
+horario_formatado = horario.strftime('%H:%M')
 
-        mensagem = (
-            f"Olá! Me chamo *{nome}* e gostaria de solicitar um agendamento no salão:\n\n"
-            f"💇‍♀️ *Serviço:* {servico}\n"
-            f"📅 *Dia:* {data_formatada}\n"
-            f"⏰ *Horário:* {horario_formatado}\n\n"
-            f"Está disponível?"
-        )
+# Se o nome já foi digitado, geramos a mensagem personalizada em tempo real
+if nome:
+    mensagem = (
+        f"Olá! Me chamo *{nome}* e gostaria de solicitar um agendamento no salão:\n\n"
+        f"💇‍♀️ *Serviço:* {servico}\n"
+        f"📅 *Dia:* {data_formatada}\n"
+        f"⏰ *Horário:* {horario_formatado}\n\n"
+        f"Está disponível?"
+    )
+else:
+    # Mensagem padrão caso o nome esteja em branco
+    mensagem = f"Olá! Gostaria de solicitar um agendamento para {servico} no dia {data_formatada} às {horario_formatado}. Está disponível?"
 
-        mensagem_codificada = urllib.parse.quote(mensagem)
+# Transforma o texto em códigos que a internet entende
+mensagem_codificada = urllib.parse.quote(mensagem)
 
-        link_whatsapp = f"https://whatsapp.com{NUMERO_WHATSAPP}&text={mensagem_codificada}"
+# Monta o link definitivo do WhatsApp
+link_whatsapp = f"https://whatsapp.com{NUMERO_WHATSAPP}&text={mensagem_codificada}"
 
-        st.session_state["link_gerado"] = link_whatsapp
-        st.session_state["nome_cliente"] = nome
-    else:
-        st.error("⚠️ Por favor, digite o seu nome antes de prosseguir.")
+# Exibe o botão direto. O navegador NUNCA bloqueia este botão porque ele é um link puro!
+st.link_button("🟢 ENVIAR SOLICITAÇÃO NO WHATSAPP", link_whatsapp, type="primary", use_container_width=True)
 
-if "link_gerado" in st.session_state:
-    st.write("---")
-    st.success(f"🎉 Prontinho, {st.session_state['nome_cliente']}! Seus dados foram organizados com sucesso.")
-
-    st.link_button("🟢 CLIQUE AQUI PARA ENVIAR NO WHATSAPP", st.session_state["link_gerado"], type="primary",
-                   use_container_width=True)
+if not nome:
+    st.info("💡 Dica: Digite seu nome acima para que a mensagem já vá personalizada com os seus dados!")
