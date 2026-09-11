@@ -2,18 +2,18 @@ import streamlit as st
 from datetime import datetime
 import urllib.parse
 
-# 📱 NÚMERO DE WHATSAPP DO STUDIO
+# 📱 NÚMERO DE WHATSAPP DO STUDIO ATUALIZADO
 NUMERO_WHATSAPP = "5511966092902"
 
 # --- CONFIGURAÇÃO DA PÁGINA WEB ---
 st.set_page_config(page_title="Studio Jeh Beauté", page_icon="💇‍♀️", layout="centered")
 
-# --- DESIGN CORRIGIDO: TRAVANDO AS CORES DA PALETA OFICIAL ---
+# --- DESIGN: PALETA OFICIAL + BLINDAGEM DE LEITURA NAS CAIXAS (CSS) ---
 VISUAL_STUDIO = """
     <style>
-    /* 1. Força o fundo de fora do site a ser o Dourado Acetinado da paleta, mesmo no modo escuro */
+    /* 1. Força o fundo de fora do site a ser o Dourado Acetinado */
     .stApp, [data-testid="stAppViewContainer"] {
-        background-color: #CDBBA7 !important; /* Dourado/Nude metálico fosco do seu guia */
+        background-color: #CDBBA7 !important; 
         background-image: none !important;
     }
 
@@ -39,11 +39,30 @@ VISUAL_STUDIO = """
         font-size: 15px;
     }
 
-    /* 4. Estilização dos rótulos dos campos (Labels) */
+    /* Estilização dos rótulos dos campos (Labels) */
     label, .stWidgetFormLabel p {
         color: #2C1E18 !important;
         font-weight: 600 !important;
         font-size: 14px !important;
+    }
+
+    /* 🔒 SOLUÇÃO DEFINITIVA: Força as caixas a terem fundo branco e letras escuras legíveis */
+    input, select, div[data-baseweb="select"], div[data-baseweb="input"], .stTextInput input {
+        background-color: #FFFFFF !important;
+        color: #2C1E18 !important;
+        border: 1px solid #E6D5CC !important;
+        -webkit-text-fill-color: #2C1E18 !important;
+    }
+
+    /* Correção específica para o texto de dentro do seletor de serviços */
+    div[data-baseweb="select"] * {
+        color: #2C1E18 !important;
+    }
+
+    /* Garante que o texto de exemplo (placeholder) fique visível em cinza */
+    input::placeholder {
+        color: #888888 !important;
+        opacity: 1 !important;
     }
 
     /* Esconde elementos padrão do Streamlit */
