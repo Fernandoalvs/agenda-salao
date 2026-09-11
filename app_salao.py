@@ -2,16 +2,17 @@ import streamlit as st
 from datetime import datetime
 import urllib.parse
 
-# 📱 NÚMERO DE WHATSAPP DO STUDIO ATUALIZADO
+# 📱 NÚMERO DE WHATSAPP DO STUDIO
 NUMERO_WHATSAPP = "5511966092902"
 
 # --- CONFIGURAÇÃO DA PÁGINA WEB ---
+# Voltamos para o layout "centered" que você prefere!
 st.set_page_config(page_title="Studio Jeh Beauté", page_icon="💇‍♀️", layout="centered")
 
-# --- DESIGN: PALETA OFICIAL + BLINDAGEM COMPLETA DE LETRAS CLARAS (CSS) ---
+# --- DESIGN CORRIGIDO: TRAVANDO AS CORES DA PALETA OFICIAL + LETRAS CLARAS ---
 VISUAL_STUDIO = """
     <style>
-    /* 1. Força o fundo de fora do site a ser o Dourado Acetinado */
+    /* 1. Força o fundo de fora do site a ser o Dourado Acetinado da paleta */
     .stApp, [data-testid="stAppViewContainer"] {
         background-color: #CDBBA7 !important; 
         background-image: none !important;
@@ -46,18 +47,13 @@ VISUAL_STUDIO = """
         font-size: 14px !important;
     }
 
-    /* 🔒 CORREÇÃO CIRÚRGICA: Força a cor das letras DENTRO de absolutamente todas as caixas para BRANCO */
-    input, select, 
-    div[data-baseweb="select"] *, 
-    div[data-baseweb="input"] input, 
-    .stTextInput input,
-    div[data-testid="stDateInput"] input,
-    div[data-testid="stTimeInput"] input {
+    /* 🔒 AQUI ESTÁ A CORREÇÃO: Força a cor das letras DENTRO das caixas escuras para BRANCO */
+    input, select, div[data-baseweb="select"] *, div[data-baseweb="input"] input, .stTextInput input {
         color: #FFFFFF !important;
-        -webkit-text-fill-color: #FFFFFF !important;
+        -webkit-text-fill-color: #FFFFFF !important; /* Garante correção em iPhones/Safari */
     }
 
-    /* Garante que o texto de exemplo (placeholder) fique em cinza claro */
+    /* Garante que o texto de exemplo (placeholder) fique em cinza claro bem legível */
     input::placeholder {
         color: #CCCCCC !important;
         opacity: 1 !important;
