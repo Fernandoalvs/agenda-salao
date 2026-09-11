@@ -6,15 +6,14 @@ import urllib.parse
 NUMERO_WHATSAPP = "5511966092902"
 
 # --- CONFIGURAÇÃO DA PÁGINA WEB ---
-# Voltamos para o layout "centered" que você prefere!
 st.set_page_config(page_title="Studio Jeh Beauté", page_icon="💇‍♀️", layout="centered")
 
-# --- DESIGN CORRIGIDO: TRAVANDO AS CORES DA PALETA OFICIAL + LETRAS CLARAS ---
+# --- DESIGN CORRIGIDO: TRAVANDO AS CORES DA PALETA OFICIAL ---
 VISUAL_STUDIO = """
     <style>
-    /* 1. Força o fundo de fora do site a ser o Dourado Acetinado da paleta */
+    /* 1. Força o fundo de fora do site a ser o Dourado Acetinado da paleta, mesmo no modo escuro */
     .stApp, [data-testid="stAppViewContainer"] {
-        background-color: #CDBBA7 !important; 
+        background-color: #CDBBA7 !important; /* Dourado/Nude metálico fosco do seu guia */
         background-image: none !important;
     }
 
@@ -40,23 +39,11 @@ VISUAL_STUDIO = """
         font-size: 15px;
     }
 
-    /* Estilização dos rótulos dos campos (Labels) */
+    /* 4. Estilização dos rótulos dos campos (Labels) */
     label, .stWidgetFormLabel p {
         color: #2C1E18 !important;
         font-weight: 600 !important;
         font-size: 14px !important;
-    }
-
-    /* 🔒 AQUI ESTÁ A CORREÇÃO: Força a cor das letras DENTRO das caixas escuras para BRANCO */
-    input, select, div[data-baseweb="select"] *, div[data-baseweb="input"] input, .stTextInput input {
-        color: #FFFFFF !important;
-        -webkit-text-fill-color: #FFFFFF !important; /* Garante correção em iPhones/Safari */
-    }
-
-    /* Garante que o texto de exemplo (placeholder) fique em cinza claro bem legível */
-    input::placeholder {
-        color: #CCCCCC !important;
-        opacity: 1 !important;
     }
 
     /* Esconde elementos padrão do Streamlit */
