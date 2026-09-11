@@ -2,6 +2,7 @@ import streamlit as st
 from datetime import datetime
 import urllib.parse
 
+
 NUMERO_WHATSAPP = "5511915167912"
 
 st.set_page_config(page_title="Solicitar Horário", page_icon="💇‍♀️", layout="centered")
@@ -20,7 +21,7 @@ horario = st.time_input("Escolha o horário desejado:")
 
 st.write("##")
 
-if st.button("Confirmar e Enviar no WhatsApp 🟢", type="primary"):
+if st.button("Confirmar Dados do Agendamento ✨", type="secondary"):
     if nome:
         data_formatada = data.strftime('%d/%m/%Y')
         horario_formatado = horario.strftime('%H:%M')
@@ -37,9 +38,14 @@ if st.button("Confirmar e Enviar no WhatsApp 🟢", type="primary"):
 
         link_whatsapp = f"https://whatsapp.com{NUMERO_WHATSAPP}&text={mensagem_codificada}"
 
-        js = f"window.open('{link_whatsapp}', '_blank');"
-        st.components.v1.html(f"<script>{js}</script>", height=0, width=0)
-
-        st.success("🎉 Abrindo o seu WhatsApp... Caso não abra sozinho, tente novamente!")
+        st.session_state["link_gerado"] = link_whatsapp
+        st.session_state["nome_cliente"] = nome
     else:
         st.error("⚠️ Por favor, digite o seu nome antes de prosseguir.")
+
+if "link_gerado" in st.session_state:
+    st.write("---")
+    st.success(f"🎉 Prontinho, {st.session_state['nome_cliente']}! Seus dados foram organizados com sucesso.")
+
+    st.link_button("🟢 CLIQUE AQUI PARA ENVIAR NO WHATSAPP", st.session_state["link_gerado"], type="primary",
+                   use_container_width=True)
