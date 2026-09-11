@@ -2,9 +2,7 @@ import streamlit as st
 from datetime import datetime
 import urllib.parse
 
-
 NUMERO_WHATSAPP = "5511915167912"
-
 
 st.set_page_config(page_title="Solicitar Horário", page_icon="💇‍♀️", layout="centered")
 
@@ -14,16 +12,15 @@ st.write("---")
 
 st.header("Preencha os dados abaixo:")
 
-
 nome = st.text_input("Qual o seu nome?")
 servico = st.selectbox("Escolha o serviço:",
-                       ["Corte Feminino", "Manicure", "Pedicure", "Escova/Escova Progressiva"])
+                       ["Corte Feminino", "Corte Masculino", "Manicure", "Pedicure", "Escova/Escova Progressiva"])
 data = st.date_input("Escolha o dia desejado:", min_value=datetime.today(), format="DD/MM/YYYY")
 horario = st.time_input("Escolha o horário desejado:")
 
 st.write("##")
 
-if st.button("Solicitar Agendamento via WhatsApp 🟢"):
+if st.button("Confirmar e Enviar no WhatsApp 🟢", type="primary"):
     if nome:
         data_formatada = data.strftime('%d/%m/%Y')
         horario_formatado = horario.strftime('%H:%M')
@@ -40,8 +37,9 @@ if st.button("Solicitar Agendamento via WhatsApp 🟢"):
 
         link_whatsapp = f"https://whatsapp.com{NUMERO_WHATSAPP}&text={mensagem_codificada}"
 
-        st.success("🎉 Seus dados foram organizados!")
+        js = f"window.open('{link_whatsapp}', '_blank');"
+        st.components.v1.html(f"<script>{js}</script>", height=0, width=0)
 
-        st.link_button("Clique aqui para enviar no WhatsApp 📲", link_whatsapp, type="primary")
+        st.success("🎉 Abrindo o seu WhatsApp... Caso não abra sozinho, tente novamente!")
     else:
         st.error("⚠️ Por favor, digite o seu nome antes de prosseguir.")
