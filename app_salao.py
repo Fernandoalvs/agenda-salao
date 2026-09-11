@@ -48,7 +48,7 @@ with aba_cliente:
 
     nome = st.text_input("Qual o seu nome?")
     servico = st.selectbox("Escolha o serviço:",
-                           ["Corte Feminino", "Corte Masculino", "Manicure", "Pedicure", "Escova/Escova Progressiva"])
+                           ["Corte Feminino", "Manicure", "Pedicure", "Escova/Escova Progressiva"])
 
     data = st.date_input("Escolha o dia:", min_value=datetime.today(), format="DD/MM/YYYY")
     horario = st.time_input("Escolha o horário:")
