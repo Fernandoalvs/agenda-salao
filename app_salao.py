@@ -8,7 +8,7 @@ NUMERO_WHATSAPP = "5511966092902"
 # --- CONFIGURAÇÃO DA PÁGINA WEB ---
 st.set_page_config(page_title="Studio Jeh Beauté", page_icon="💇‍♀️", layout="centered")
 
-# --- DESIGN: PALETA OFICIAL + LETRAS CLARAS INTERNAS (CSS) ---
+# --- DESIGN: PALETA OFICIAL + BLINDAGEM COMPLETA DE LETRAS CLARAS (CSS) ---
 VISUAL_STUDIO = """
     <style>
     /* 1. Força o fundo de fora do site a ser o Dourado Acetinado */
@@ -46,8 +46,13 @@ VISUAL_STUDIO = """
         font-size: 14px !important;
     }
 
-    /* 🔒 CORREÇÃO DE LEITURA: Força a cor das letras DENTRO das caixas para BRANCO */
-    input, select, div[data-baseweb="select"] *, div[data-baseweb="input"] input, .stTextInput input {
+    /* 🔒 CORREÇÃO CIRÚRGICA: Força a cor das letras DENTRO de absolutamente todas as caixas para BRANCO */
+    input, select, 
+    div[data-baseweb="select"] *, 
+    div[data-baseweb="input"] input, 
+    .stTextInput input,
+    div[data-testid="stDateInput"] input,
+    div[data-testid="stTimeInput"] input {
         color: #FFFFFF !important;
         -webkit-text-fill-color: #FFFFFF !important;
     }
@@ -82,7 +87,6 @@ with col1:
     data = st.date_input("📅 Escolha o dia:", min_value=datetime.today(), format="DD/MM/YYYY")
 
 with col2:
-    # ✂️ REMOVIDO "Corte Masculino" da lista abaixo:
     servico = st.selectbox("💇‍♀️ Escolha o serviço:",
                            ["Corte Feminino", "Manicure", "Pedicure", "Escova/Escova Progressiva"])
     horario = st.time_input("⏰ Escolha o horário:")
@@ -105,8 +109,6 @@ else:
     mensagem = f"Olá! Gostaria de solicitar um agendamento para {servico} no dia {data_formatada} às {horario_formatado}. Está disponível?"
 
 mensagem_codificada = urllib.parse.quote(mensagem)
-
-# 🌟 O link oficial agora usa a barra "/" e o novo número finalizado em 2902!
 link_whatsapp = f"https://wa.me{NUMERO_WHATSAPP}?text={mensagem_codificada}"
 
 # --- BOTÃO "AGENDAR AGORA" EM NUDE ROSÉ ---
