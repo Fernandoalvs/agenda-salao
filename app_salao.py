@@ -3,57 +3,77 @@ from datetime import datetime
 import urllib.parse
 
 # 📱 NÚMERO DE WHATSAPP DO STUDIO
-NUMERO_WHATSAPP = "5511966092902"
+NUMERO_WHATSAPP = "5511915167912"
 
 # --- CONFIGURAÇÃO DA PÁGINA WEB ---
-st.set_page_config(page_title="Studio Jeh Beaute", page_icon="💇‍♀️", layout="centered")
+st.set_page_config(page_title="Studio Jeh Beauté", page_icon="💇‍♀️", layout="centered")
 
-# --- LINK DA IMAGEM DE FUNDO PERSONALIZADA ---
-# Usamos uma foto em HD de um salão moderno, minimalista e elegante
-URL_IMAGEM_FUNDO = "https://unsplash.com"
+# --- TEXTURA DE MÁRMORE COM DOURADO DA PALETA ---
+URL_MARMORE = "https://shutterstock.com"
+# Usando link direto otimizado da textura de mármore e ouro
+URL_FUNDO = "https://freepik.com"
 
-# --- APLICANDO O DESIGN VISUAL (CSS) ---
-VISUAL_CUSTOMIZADO = f"""
+# --- DESIGN PERSONALIZADO BASEADO NA IDENTIDADE VISUAL ---
+VISUAL_STUDIO = f"""
     <style>
-    /* Aplica a imagem de fundo em toda a tela do site */
+    /* 1. Aplica a textura de mármore no fundo do site */
     .stApp {{
-        background-image: url("{URL_IMAGEM_FUNDO}");
+        background-image: url("{URL_FUNDO}");
         background-attachment: fixed;
         background-size: cover;
         background-position: center;
     }}
 
-    /* Cria o container central com efeito "vidro fosco" para leitura limpa */
+    /* 2. Container Central com bordas arredondadas e fundo sólido suave */
     .block-container {{
-        background-color: rgba(255, 255, 255, 0.92);
-        padding: 40px !important;
-        border-radius: 20px;
-        box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
-        margin-top: 30px;
+        background-color: #FAF6F0 !important; /* Off-white suave e aconchegante */
+        padding: 45px !important;
+        border-radius: 16px;
+        box-shadow: 0px 15px 35px rgba(44, 30, 24, 0.15);
+        margin-top: 40px;
     }}
 
-    /* Esconde os menus cinzas padrão do Streamlit */
+    /* 3. Forçando as cores dos títulos para o Marrom Escuro do logotipo */
+    h1, h2, h3, .stMarkdown p {{
+        color: #2C1E18 !important;
+        font-family: 'Playfair Display', 'Didot', 'Georgia', serif !important;
+    }}
+
+    /* Ajuste de legenda secundária */
+    p.subtitulo {{
+        color: #5C4A42 !important;
+        text-align: center;
+        font-size: 15px;
+    }}
+
+    /* 4. Estilização dos rótulos dos campos de entrada */
+    label, .stWidgetFormLabel p {{
+        color: #2C1E18 !important;
+        font-weight: 600 !important;
+        font-size: 14px !important;
+    }}
+
+    /* Esconde elementos padrão do Streamlit */
     #MainMenu {{visibility: hidden;}}
     footer {{visibility: hidden;}}
     header {{visibility: hidden;}}
     </style>
 """
-st.markdown(VISUAL_CUSTOMIZADO, unsafe_allow_html=True)
+st.markdown(VISUAL_STUDIO, unsafe_allow_html=True)
 
 # --- CONTEÚDO DO SITE ---
-st.markdown("<h1 style='text-align: center; color: #1E1E1E;'>💇‍♀️ Studio Jeh Beaute</h1>", unsafe_allow_html=True)
-st.markdown(
-    "<p style='text-align: center; color: #555555; font-size: 16px;'>Escolha o serviço e horário de sua preferência para atendimento</p>",
-    unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; letter-spacing: 2px;'>STUDIO JEH BEAUTÉ</h1>", unsafe_allow_html=True)
+st.markdown("<p class='subtitulo'>Pré-Agendamento Online de Serviços Exclusivos</p>", unsafe_allow_html=True)
 st.write("---")
 
-st.markdown("<h3 style='color: #1E1E1E;'>✨ Insira seus dados para a solicitação:</h3>", unsafe_allow_html=True)
+st.markdown("<h3 style='font-size: 18px; margin-bottom: 15px;'>✨ Insira seus dados para a solicitação:</h3>",
+            unsafe_allow_html=True)
 
-# Organizando os campos lado a lado
+# Organizando os campos lado a lado em duas colunas
 col1, col2 = st.columns(2)
 
 with col1:
-    nome = st.text_input("👤 Seu nome completo:", placeholder="Ex: Maria Silva")
+    nome = st.text_input("👤 Seu nome completo:", placeholder="Digite aqui...")
     data = st.date_input("📅 Escolha o dia:", min_value=datetime.today(), format="DD/MM/YYYY")
 
 with col2:
@@ -81,12 +101,14 @@ else:
 mensagem_codificada = urllib.parse.quote(mensagem)
 link_whatsapp = f"https://wa.me{NUMERO_WHATSAPP}?text={mensagem_codificada}"
 
-# --- BOTÃO DO WHATSAPP ESTILIZADO EM HTML ---
+# --- BOTÃO "AGENDAR AGORA" EM NUDE ROSÉ (IDÊNTICO AO GUIA) ---
+# Cor do fundo: #E6D5CC (Nude Rosé do botão inferior do seu guia)
+# Cor do texto: #2C1E18 (Marrom escuro da marca)
 botao_html = f"""
-    <div style="text-align: center; margin-top: 10px;">
+    <div style="text-align: center; margin-top: 15px;">
         <a href="{link_whatsapp}" target="_blank" style="text-decoration: none;">
-            <div style="background-color: #25D366; color: white; padding: 16px 30px; font-size: 18px; font-weight: bold; border-radius: 50px; display: inline-block; box-shadow: 0px 6px 12px rgba(37, 211, 102, 0.3); width: 100%; transition: 0.3s;">
-                🟢 ENVIAR SOLICITAÇÃO VIA WHATSAPP
+            <div style="background-color: #E6D5CC; color: #2C1E18; padding: 16px 30px; font-size: 16px; font-weight: bold; font-family: 'Playfair Display', serif; letter-spacing: 2px; border-radius: 8px; display: inline-block; box-shadow: 0px 4px 15px rgba(44, 30, 24, 0.15); width: 100%; transition: 0.3s;">
+                AGENDAR AGORA
             </div>
         </a>
     </div>
@@ -94,5 +116,6 @@ botao_html = f"""
 st.markdown(botao_html, unsafe_allow_html=True)
 
 st.write("##")
-st.info(
-    "💡 **Como funciona?** Ao clicar no botão acima, seu WhatsApp se abrirá com os dados preenchidos. Nossa equipe irá analisar a disponibilidade e te responderá em instantes!")
+st.markdown(
+    "<p style='font-size: 13px; color: #666; text-align: center;'>💡 <i>Ao clicar no botão, sua solicitação será enviada formatada diretamente para o nosso atendimento via WhatsApp.</i></p>",
+    unsafe_allow_html=True)
