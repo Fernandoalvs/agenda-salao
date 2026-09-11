@@ -57,9 +57,9 @@ VISUAL_STUDIO = """
         -webkit-text-fill-color: #FFFFFF !important;
     }
 
-    /* Garante que o texto de exemplo (placeholder) fique BRANCO */
+    /* Garante que o texto de exemplo (placeholder) fique em cinza claro */
     input::placeholder {
-        color: #FFFFFF !important;
+        color: #CCCCCC !important;
         opacity: 1 !important;
     }
 
