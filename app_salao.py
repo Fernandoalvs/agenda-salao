@@ -42,7 +42,7 @@ else:
 mensagem_codificada = urllib.parse.quote(mensagem)
 
 # Links alternativos do WhatsApp (usando o wa.me que é mais aceito por celulares)
-link_whatsapp = f"https://wa.me{NUMERO_WHATSAPP}?text={mensagem_codificada}"
+link_whatsapp = f"https://wa.me/{NUMERO_WHATSAPP}?text={mensagem_codificada}"
 
 st.write("### Clique no botão abaixo para enviar:")
 
