@@ -2,28 +2,31 @@ import streamlit as st
 from datetime import datetime
 import urllib.parse
 
-# 📱 NÚMERO DE WHATSAPP DO STUDIO
+# 📱 NÚMERO DE WHATSAPP DO STUDIO ATUALIZADO
 NUMERO_WHATSAPP = "5511966092902"
 
 # --- CONFIGURAÇÃO DA PÁGINA WEB ---
-st.set_page_config(page_title="Studio Jeh Beauté", page_icon="💇‍♀️", layout="wide")
+st.set_page_config(page_title="Studio Jeh Beauté", page_icon="💇‍♀️", layout="centered")
 
-# --- DESIGN CORRIGIDO PARA TELA CHEIA E LEITURA DAS CAIXAS (CSS) ---
+# --- DESIGN: PALETA OFICIAL + LETRAS CLARAS INTERNAS (CSS) ---
 VISUAL_STUDIO = """
     <style>
-    /* Força o fundo do site inteiro a ser o Pérola/Off-white */
-    .stApp, [data-testid="stAppViewContainer"], .block-container {
-        background-color: #FAF6F0 !important; 
+    /* 1. Força o fundo de fora do site a ser o Dourado Acetinado */
+    .stApp, [data-testid="stAppViewContainer"] {
+        background-color: #CDBBA7 !important; 
         background-image: none !important;
     }
 
-    /* Ajusta o espaçamento interno */
+    /* 2. Container Central Pérola (Off-white) */
     .block-container {
-        padding: 40px 60px !important;
-        max-width: 100% !important;
+        background-color: #FAF6F0 !important; 
+        padding: 45px !important;
+        border-radius: 16px;
+        box-shadow: 0px 15px 35px rgba(44, 30, 24, 0.25);
+        margin-top: 40px;
     }
 
-    /* Forçando as cores dos títulos para o Marrom Escuro do logotipo */
+    /* 3. Forçando as cores dos títulos para o Marrom Escuro do logotipo */
     h1, h2, h3, .stMarkdown p, span, p strong {
         color: #2C1E18 !important;
         font-family: 'Playfair Display', 'Didot', 'Georgia', serif !important;
@@ -33,27 +36,27 @@ VISUAL_STUDIO = """
     p.subtitulo {
         color: #5C4A42 !important;
         text-align: center;
-        font-size: 16px;
+        font-size: 15px;
     }
 
     /* Estilização dos rótulos dos campos (Labels) */
     label, .stWidgetFormLabel p {
         color: #2C1E18 !important;
         font-weight: 600 !important;
-        font-size: 15px !important;
+        font-size: 14px !important;
     }
 
-    /* 🔒 CORREÇÃO CIRÚRGICA: Força a cor dos textos DENTRO das caixas escuras para BRANCO */
-    input, select, div[data-baseweb="select"] *, div[data-baseweb="input"] input, .stTextInput input {{
+    /* 🔒 CORREÇÃO DE LEITURA: Força a cor das letras DENTRO das caixas para BRANCO */
+    input, select, div[data-baseweb="select"] *, div[data-baseweb="input"] input, .stTextInput input {
         color: #FFFFFF !important;
-        -webkit-text-fill-color: #FFFFFF !important; /* Garante correção em iPhones/Safari */
-    }}
+        -webkit-text-fill-color: #FFFFFF !important;
+    }
 
-    /* Garante que o texto de exemplo (placeholder) fique em cinza claro legível */
-    input::placeholder {{
+    /* Garante que o texto de exemplo (placeholder) fique em cinza claro */
+    input::placeholder {
         color: #CCCCCC !important;
         opacity: 1 !important;
-    }}
+    }
 
     /* Esconde elementos padrão do Streamlit */
     #MainMenu {visibility: hidden;}
@@ -64,16 +67,14 @@ VISUAL_STUDIO = """
 st.markdown(VISUAL_STUDIO, unsafe_allow_html=True)
 
 # --- CONTEÚDO DO SITE ---
-st.markdown("<h1 style='text-align: center; letter-spacing: 2px; font-size: 40px;'>STUDIO JEH BEAUTÉ</h1>",
-            unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; letter-spacing: 2px;'>STUDIO JEH BEAUTÉ</h1>", unsafe_allow_html=True)
 st.markdown("<p class='subtitulo'>Pré-Agendamento Online de Serviços Exclusivos</p>", unsafe_allow_html=True)
 st.write("---")
 
-st.markdown(
-    "<h3 style='font-size: 20px; margin-bottom: 20px; text-align: center;'>✨ Insira seus dados para a solicitação:</h3>",
-    unsafe_allow_html=True)
+st.markdown("<h3 style='font-size: 18px; margin-bottom: 15px;'>✨ Insira seus dados para a solicitação:</h3>",
+            unsafe_allow_html=True)
 
-# Organizando os campos lado a lado
+# Organizando os campos lado a lado em duas colunas
 col1, col2 = st.columns(2)
 
 with col1:
@@ -81,6 +82,7 @@ with col1:
     data = st.date_input("📅 Escolha o dia:", min_value=datetime.today(), format="DD/MM/YYYY")
 
 with col2:
+    # ✂️ REMOVIDO "Corte Masculino" da lista abaixo:
     servico = st.selectbox("💇‍♀️ Escolha o serviço:",
                            ["Corte Feminino", "Manicure", "Pedicure", "Escova/Escova Progressiva"])
     horario = st.time_input("⏰ Escolha o horário:")
@@ -103,13 +105,15 @@ else:
     mensagem = f"Olá! Gostaria de solicitar um agendamento para {servico} no dia {data_formatada} às {horario_formatado}. Está disponível?"
 
 mensagem_codificada = urllib.parse.quote(mensagem)
+
+# 🌟 O link oficial agora usa a barra "/" e o novo número finalizado em 2902!
 link_whatsapp = f"https://wa.me{NUMERO_WHATSAPP}?text={mensagem_codificada}"
 
-# --- BOTÃO "AGENDAR AGORA" CENTRALIZADO ---
+# --- BOTÃO "AGENDAR AGORA" EM NUDE ROSÉ ---
 botao_html = f"""
-    <div style="text-align: center; margin-top: 20px;">
+    <div style="text-align: center; margin-top: 15px;">
         <a href="{link_whatsapp}" target="_blank" style="text-decoration: none;">
-            <div style="background-color: #E6D5CC; color: #2C1E18; padding: 18px 40px; font-size: 18px; font-weight: bold; font-family: 'Playfair Display', serif; letter-spacing: 2px; border-radius: 8px; display: inline-block; box-shadow: 0px 4px 15px rgba(44, 30, 24, 0.15); width: 100%; max-width: 500px; transition: 0.3s;">
+            <div style="background-color: #E6D5CC; color: #2C1E18; padding: 16px 30px; font-size: 16px; font-weight: bold; font-family: 'Playfair Display', serif; letter-spacing: 2px; border-radius: 8px; display: inline-block; box-shadow: 0px 4px 15px rgba(44, 30, 24, 0.15); width: 100%; transition: 0.3s;">
                 AGENDAR AGORA
             </div>
         </a>
@@ -119,5 +123,5 @@ st.markdown(botao_html, unsafe_allow_html=True)
 
 st.write("##")
 st.markdown(
-    "<p style='font-size: 14px; color: #5C4A42; text-align: center;'>💡 <i>Ao clicar no botão, sua solicitação será enviada formatada diretamente para o nosso atendimento via WhatsApp.</i></p>",
+    "<p style='font-size: 13px; color: #5C4A42; text-align: center;'>💡 <i>Ao clicar no botão, sua solicitação será enviada formatada diretamente para o nosso atendimento via WhatsApp.</i></p>",
     unsafe_allow_html=True)
